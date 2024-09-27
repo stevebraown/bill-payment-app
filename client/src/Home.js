@@ -7,12 +7,14 @@ const Home = () => {
 
   const handleBillCheck = async () => {
     try {
-      const response = await axios.get(`/api/bills/${billNumber}`);
+      const response = await axios.get(`http://localhost:5000/api/bills/${billNumber}`);
       setBillData(response.data);
     } catch (err) {
       console.error('Error fetching bill:', err);
+      setBillData(null); // Reset the bill data if there's an error
     }
   };
+  
 
   return (
     <div>
