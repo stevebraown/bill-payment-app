@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const billRoutes = require('./routes/billRoutes');
+const paymentRoutes = require('./routes/paymentRoutes');
+const agentRoutes = require('./routes/agentRoutes');
 
 // Load environment variables
 dotenv.config();
@@ -28,3 +30,5 @@ app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 // Import routes 
 app.use('/api/bills', billRoutes);
+app.use('/api/payments', paymentRoutes);
+app.use('/api/agents', agentRoutes);
