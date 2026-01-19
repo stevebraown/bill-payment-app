@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const Bill = require('../models/Bill');
+const { requireFields } = require('../middleware/validate');
 
 // Get bill by number
 router.get('/:billNumber', async (req, res) => {
@@ -15,9 +16,9 @@ router.get('/:billNumber', async (req, res) => {
 });
 
 // Add a new bill (for initial setup)
-router.post('/', async (req, res) => {
-  const { billNumber, registeredName, amountOwed, type } = req.body;
-  const bill = new Bill({ billNumber, registeredName, amountOwed, type });
+router.post('/', requireFields(['billNumber', 'registeredName', 'amountOwed', 'type']), async (req, res) => {
+  const { billNumber, registeredName, amountOwed, type, dueDate } = req.body;
+  const bill = new Bill({ billNumber, registeredName, amountOwed, type, dueDate });
 
   try {
     const savedBill = await bill.save();

@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const Agent = require('../models/Agent');
+const { requireFields } = require('../middleware/validate');
 
 // Create a new agent
-router.post('/create', async (req, res) => {
+router.post('/create', requireFields(['name', 'phone']), async (req, res) => {
   const { name, phone } = req.body;
   try {
     const agent = new Agent({ name, phone });
